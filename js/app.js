@@ -51,6 +51,11 @@ document.addEventListener("DOMContentLoaded",()=>{
         }).
         then((data)=>{
           showJson(data);
+        }).
+        catch((e)=>{
+          document.querySelector('.main').innerHTML = `
+            Ошибка получения данных: ${e.message}
+          `;
         });
 
       }
@@ -98,7 +103,6 @@ document.addEventListener("DOMContentLoaded",()=>{
       }
 
       function refreshQuestion(){
-        console.log(countQuestion);
         if(countQuestion ===  3){
           const loader = document.createElement('div');
           loader.classList.add('loader');
@@ -112,7 +116,6 @@ document.addEventListener("DOMContentLoaded",()=>{
          
           setTimeout(()=>{
             const el = document.querySelector('.loader');  
-            console.log(el);
             el.remove();
             countQuestion++;
             window.scroll(0,0);
@@ -128,7 +131,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                 ${arrQuestions[countQuestion-1].text}
                   
               <svg class="eye__svg">
-                  <use xlink:href="#eye"></use>
+                  <use xlink:href="sprite.svg#eye"></use>
               </svg>    
               </div>
               <span class="border-quiz"></span>
@@ -137,7 +140,7 @@ document.addEventListener("DOMContentLoaded",()=>{
               </div>
               <div class="quiz__num">Вопрос <span class="quiz__num-content">${countQuestion}-5</span></div>
               <svg class="planet__svg">
-              <use xlink:href="#planet"></use>
+              <use xlink:href="sprite2.svg#planet"></use>
               </svg>
               
           </div>
@@ -156,7 +159,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                     ${arrQuestions[countQuestion-1].text}
                       
                   <svg class="eye__svg">
-                      <use xlink:href="#eye"></use>
+                      <use xlink:href="sprite.svg#eye"></use>
                   </svg>    
                   </div>
                   <span class="border-quiz"></span>
@@ -165,12 +168,13 @@ document.addEventListener("DOMContentLoaded",()=>{
                   </div>
                   <div class="quiz__num">Вопрос <span class="quiz__num-content">${countQuestion+1}-5</span></div>
                   <svg class="planet__svg">
-                  <use xlink:href="#planet"></use>
+                  <use xlink:href="sprite2.svg#planet"></use>
                   </svg>
                   
               </div>
               `;
               const btnsquiz = document.querySelector('.btnsquiz');
+              const quizQ = document.querySelector('.quiz-q');
               btnsquiz.append(arrQuestions[countQuestion-1].elem1);
               btnsquiz.append(arrQuestions[countQuestion-1].elem2);
               btnsquiz.append(arrQuestions[countQuestion-1].elem3);
@@ -182,7 +186,24 @@ document.addEventListener("DOMContentLoaded",()=>{
                 const month = document.querySelector('.month');
                 const years = document.querySelector('.years');
                 const btnNext = document.querySelector('.btn-answer');
-
+                btnNext.classList.add('next-btn');
+                
+                quizQ.style.animation = 'none';
+                days.addEventListener('change',()=>{
+                  if(days.value !== 'День'){
+                    days.classList.remove('red__border');
+                  }
+                });
+                month.addEventListener('change',()=>{
+                  if(month.value !== 'Месяц'){
+                    month.classList.remove('red__border');
+                  }
+                });
+                years.addEventListener('change',()=>{
+                  if(years.value !== 'Год'){
+                    years.classList.remove('red__border');
+                  }
+                });
                 btnNext.addEventListener('click',(e)=>{
                   e.preventDefault();
                   days.classList.remove('red__border');
@@ -198,8 +219,9 @@ document.addEventListener("DOMContentLoaded",()=>{
                   }else{
                     countQuestion = 2;
                     age = 2021-(+years.value);
-                    console.log('age: ',age);
                     countQuestion++;
+                    
+                  quizQ.style.animation = 'anim-block 1s linear';
                   }
                 });
               }else{
@@ -207,7 +229,6 @@ document.addEventListener("DOMContentLoaded",()=>{
               }
 
               
-              console.log(countQuestion);
               window.scroll(0,0);
             }
 
@@ -232,7 +253,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                     ${message}
                       
                   <svg class="eye__svg">
-                      <use xlink:href="#eye"></use>
+                      <use xlink:href="sprite.svg#eye"></use>
                   </svg>    
                   </div>
                   <span class="border-quiz"></span>
@@ -241,7 +262,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                   </div>
                   <div class="quiz__num">Вопрос <span class="quiz__num-content">${countQuestion}-5</span></div>
                   <svg class="planet__svg">
-                  <use xlink:href="#planet"></use>
+                  <use xlink:href="sprite2.svg#planet"></use>
                   </svg>
                   
               </div>
@@ -250,7 +271,6 @@ document.addEventListener("DOMContentLoaded",()=>{
               btnsquiz.append(arrQuestions[countQuestion-1].elem1);
               btnsquiz.append(arrQuestions[countQuestion-1].elem2);
 
-              console.log(countQuestion);
               countQuestion++;
               window.scroll(0,0);
               
@@ -368,7 +388,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         document.querySelector('.main').innerHTML = `
         <div class="center_audio">
         <svg class="micro">
-        <use xlink:href="#micro"></use>
+        <use xlink:href="sprite2.svg#micro"></use>
     </svg>
 
     <div class="load__line"></div>
@@ -401,23 +421,33 @@ document.addEventListener("DOMContentLoaded",()=>{
         month = month <10 ? '0'+month:month;
         let s = `${day}.${month}.${year}`;
         document.querySelector('.main').innerHTML = `
-        <div class="quiz__message answers-style">
-        Спасибо за Ваши ответы!<br>
-          <b>Мы подготовили для Вас персональную аудио запись с Вашим прогнозом.</b>
-        </div>
-    <div class="text_last">
-        Вы можете узнать, как повлиять на события, которые ожидают вас в ближайшем будущем. 
+      
+    <div class="quiz__message answers-style">
+    Спасибо за Ваши ответы!<br>
+      <b>Мы подготовили для Вас персональную аудио запись с Вашим прогнозом.</b>
+    </div>
+<div class="text_last">
+    Вы можете узнать, как повлиять на события, которые ожидают вас в ближайшем будущем. 
 
-    </div>
-    <div class="textblock text_change">
-        <span class="text_change_upper">Первое значимое<br> событие может <br>произойти уже ${s}</span>, Вам надо быть готовым, что бы последствия не оказались необратимыми.
+</div>
+<div class="textblock text_change">
+    <span class="text_change_upper">Первое значимое<br> событие может <br>произойти уже ${s}</span>, Вам надо быть готовым, что бы последствия не оказались необратимыми.
 
-    </div>
-    <div class="text_last">
-        Нажмите на кнопку ниже прямо сейчас и наберите наш номер телефона. Прослушайте важную информацию!
-    </div>
-    <button class="btn-req btn-anim">Позвонить и прослушать</button>
+</div>
+<div class="text_last">
+    Нажмите на кнопку ниже прямо сейчас и наберите наш номер телефона. Прослушайте важную информацию!
+</div>
+<button class="btn-req btn-anim">Позвонить и прослушать</button>
+<div class="down-text quiz-footer" tabindex="0">
+    TERMENI SI CONDITII: ACESTA ESTE UN SERVICIU DE DIVERTISMENT. PRIN FOLOSIREA LUI DECLARATI CA AVETI 18 ANI IMPLINITI, 
+</div>
+<button class="show-more">Показать больше</button>
         `;
+
+        const showmore = document.querySelector('.show-more');
+        showmore.addEventListener('click',()=>{
+            document.querySelector('.quiz-footer').style.height = 'auto';
+        });
       }
 
 
@@ -444,3 +474,4 @@ document.addEventListener("DOMContentLoaded",()=>{
         });
       }
 });
+// https://github.com/nick98kzmnko/date-of-death

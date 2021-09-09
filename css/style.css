@@ -369,9 +369,8 @@ color:#F6C866;
     margin-bottom: 75px;
 }
 .select__item{
-    width: 180px;
-    height: 40px;
-    background-color: linear-gradient(90deg, rgba(228, 228, 228, 0.9) -6.2%, rgba(203, 203, 203, 0.9) 100%);
+    background-color:#ccc;
+
     border:0;
     border-radius: 50px;
     outline: none;
@@ -384,10 +383,35 @@ color:#F6C866;
     background-image: url('../img/Polygon.png');
 	background-position: 93% center;
 	background-repeat: no-repeat;
+    background-blend-mode: multiply;
     margin: 0 auto;
     width: 310px;
     height: 70px;
     margin-bottom: 36px;
+}
+.select__item *{
+    background: #fff;
+}
+.quiz-footer{
+    display: block;
+    outline: none;
+    text-align: center;
+    height: 15px;
+    overflow: hidden;
+    margin-bottom: 10px;
+
+}
+.show-more{
+    outline: none;
+    background: 0;
+    border:0;
+    color:#fff;
+    text-decoration: underline;
+    display: block;
+    margin: 0 auto;
+}
+.quiz-footer:focus ~ .quiz-footer{
+    height: auto;
 }
 .answers-style{
     font-family: 'Roboto',sans-serif;
@@ -465,8 +489,8 @@ color:#F6C866;
     position: absolute;
     top: 3px;
     left: 37px;
-    width: 5px;
-    height: 18px;
+    width: 6px;
+    height: 13px;
     border-radius: 30%;
     background: #D0A342;
   }
@@ -566,7 +590,57 @@ color:#F6C866;
         background-size: cover;
     }
 }
+@media (max-width:758px){
+    .quiz__text{
+        font-size: 19px;
+        
+    }
+    .quiz__header{
+        font-size: 22px;
+    
+    }
+    .quiz__message .eye__svg {
+        top: 55%;
+        right: -20%;
+    }
+    .quiz__header{
+        padding: 0 25px;
+    }
+}
 @media (max-width:435px){
+    .quiz__message{
+        font-size: 14px;
+        margin-right: 30px;
+        margin-left: 30px;
+    
+        padding: 25px 12px;
+        margin-top: 24px;
+        line-height: 20px;
+    }
+    .quiz__message .eye__svg {
+        top: 55%;
+        right: -32%;
+    }
+    .quiz__text{
+        font-size: 14px;
+        line-height: 20px;
+        padding: 20px 40px;
+        margin-top: 0;
+    }
+    .quiz__text .eye__svg{
+        right: -17%;
+    }
+    .quiz__header{
+        padding: 0 12px;
+        margin-bottom: 36px;
+    }
+    .select__item{
+        
+    width: 180px;
+    height: 40px;
+    margin-bottom: 20px;
+    }
+    
     .answers-style{
         margin-right: 20px;
         margin-left: 20px;
@@ -659,5 +733,9 @@ color:#F6C866;
     }
     .rune2{
         height: 56px;
+    }
+    .next-btn{
+        width: 180px;
+        height: 40px;
     }
 }
