@@ -591,6 +591,9 @@ color:#F6C866;
     }
 }
 @media (max-width:758px){
+    .border-quiz{
+        margin-bottom: 50px;
+    }
     .quiz__text{
         font-size: 19px;
         
@@ -632,6 +635,7 @@ color:#F6C866;
     }
     .quiz__header{
         padding: 0 12px;
+        line-height: 25px;
         margin-bottom: 36px;
     }
     .select__item{
